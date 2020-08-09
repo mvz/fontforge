@@ -2884,7 +2884,12 @@ return( NULL );
 	}
     }
     last->next = erase;
-return( SplineSetRemoveOverlap(sc,head,over_remove) );
+
+    /* Remove overlap, subtracting the erased spline from the rest */
+    head = SplineSetRemoveOverlap(sc,head,over_remove);
+
+    /* Clean up erased spline */
+    return( SplineSetRemoveOverlap(sc,head,over_remove) );
 }
 
 static Entity *EntityReverse(Entity *ent) {

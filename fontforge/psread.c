@@ -2889,6 +2889,16 @@ return( NULL );
     head = SplineSetRemoveOverlap(sc,head,over_remove);
 
     /* Clean up erased spline */
+    for ( spl=head; spl!=NULL; spl=spl->next ) {
+	for ( sp=spl->first; sp!=NULL; ) {
+	    sp->selected = false;
+	    if ( sp->next==NULL )
+	break;
+	    sp = sp->next->to;
+	    if ( sp==spl->first )
+	break;
+	}
+    }
     return( SplineSetRemoveOverlap(sc,head,over_remove) );
 }
 

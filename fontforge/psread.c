@@ -2861,9 +2861,6 @@ static SplinePointList *EraseStroke(SplineChar *sc,SplinePointList *head,SplineP
 return( NULL );
     }
 
-    /* Clean up any existing overlaps */
-    head = SplineSetRemoveOverlap(sc, head, over_remove);
-
     last = NULL;
     for ( spl=head; spl!=NULL; spl=spl->next ) {
 	for ( sp=spl->first; sp!=NULL; ) {
@@ -2887,7 +2884,7 @@ return( NULL );
 	}
     }
     last->next = erase;
-return( SplineSetRemoveOverlap(sc,head,over_exclude) );
+return( SplineSetRemoveOverlap(sc,head,over_remove) );
 }
 
 static Entity *EntityReverse(Entity *ent) {

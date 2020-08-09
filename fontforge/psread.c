@@ -2861,10 +2861,13 @@ static SplinePointList *EraseStroke(SplineChar *sc,SplinePointList *head,SplineP
 return( NULL );
     }
 
+    /* Clean up any existing overlaps */
+    head = SplineSetRemoveOverlap(sc, head, over_remove);
+
     last = NULL;
     for ( spl=head; spl!=NULL; spl=spl->next ) {
 	for ( sp=spl->first; sp!=NULL; ) {
-	    sp->selected = false;
+	    sp->selected = true;
 	    if ( sp->next==NULL )
 	break;
 	    sp = sp->next->to;
@@ -2875,7 +2878,7 @@ return( NULL );
     }
     for ( spl=erase; spl!=NULL; spl=spl->next ) {
 	for ( sp=spl->first; sp!=NULL; ) {
-	    sp->selected = true;
+	    sp->selected = false;
 	    if ( sp->next==NULL )
 	break;
 	    sp = sp->next->to;
